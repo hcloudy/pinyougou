@@ -14,86 +14,11 @@
 	<script src="../plugins/angularjs/angular.min.js" ></script>
 	<script src="../plugins/angularjs/pagination.css"></script>
 	<script src="../plugins/angularjs/pagination.js"></script>
-	<script type="text/javascript">
-		var app = angular.module("pinyougou",["pagination"]);
-		app.controller("brandController",function($scope,$http){
-			$scope.findAll = function() {
-				$http.get("../brand/findAll.do").success(function(response) {
-					$scope.list = response;
-				});
-			}
-			//分页控件配置currentPage:当前页   totalItems :总记录数  itemsPerPage:每页记录数  perPageOptions :分页选项  onChange:当页码变更后自动触发的方法
-			$scope.paginationConf = {
-				currentPage: 1,
-				totalItems: 10,
-				itemsPerPage: 10,
-				perPageOptions: [10, 20, 30, 40, 50],
-				onChange: function(){
-					$scope.reloadList();
-				}
-			}
-			$scope.reloadList = function() {
-				$scope.findPage($scope.paginationConf.currentPage,$scope.paginationConf.itemsPerPage);
-			}
-			$scope.findPage = function(page,size) {
-				$http.get("../brand/findPage.do?page="+page+"&size="+size)
-					 .success(function(response) {
-						$scope.list = response.rows;
-						$scope.paginationConf.totalItems = response.total;
-				});
-			}
-			//新增
-			$scope.add = function() {
-				var methodName = 'add';
-				if($scope.entity.id != null) {
-					methodName = 'update';
-				}
-				$http.post("../brand/"+methodName+".do",$scope.entity).success(
-					function(response) {
-						if(response.success) {
-							$scope.reloadList();
-						}else{
-							alert(response.message);
-						}
-					}
-				);
-			}
-			//根据品牌id查询品牌信息
-			$scope.findById = function(id) {
-				$http.get("../brand/findById.do?id="+id).success(
-					function(response) {
-						$scope.entity = response;
-					}
-				);
-			}
-			//勾选品牌
-			$scope.selectIds = [];
-			$scope.selects = function($event,id) {
-				//$event代表input标签的源,$event.target代表input标签,通过判断复选框的checked属性来判断是否选中
-				if($event.target.checked) {
-					$scope.selectIds.push(id);
-				}else {
-					var index = $scope.selectIds.indexOf(id);//查找id在selectIds数组中的位置
-					$scope.selectIds.splice(index,1); //splice是将数组中index位置的1个数据删除
-				}
-			}
-			//删除
-			$scope.del = function() {
-				$http.get("../brand/delete.do?ids="+$scope.selectIds).success(
-					function(response) {
-						if(response.success){
-							$scope.reloadList();
-						}else {
-							alert(response.message);
-						}
-					}
-				);
-			}
+	<!--引入js-->
+	<script src="../js/base_pagination.js"></script>
+	<script src="../js/service/brandService.js"></script>
+	<script src="../js/controller/brandController.js"></script>
 
-		});
-
-	</script>
-    
 </head>
 <body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="brandController">
   <!-- .box-body -->
@@ -118,7 +43,7 @@
                             </div>
                             <div class="box-tools pull-right">
                                 <div class="has-feedback">
-							                                         
+							           品牌名称：<input ng-model="searchEntity.name">品牌首字母：<input ng-model="searchEntity.firstChar"><button ng-click="reloadList()">查询</button>
                                 </div>
                             </div>
                             <!--工具栏/-->
@@ -150,7 +75,6 @@
 			                  </table>
 			                  <!--数据列表/-->
 							<tm-pagination conf="paginationConf"></tm-pagination>
-							{{selectIds}}
                         </div>
                         <!-- 数据表格 /-->
                         

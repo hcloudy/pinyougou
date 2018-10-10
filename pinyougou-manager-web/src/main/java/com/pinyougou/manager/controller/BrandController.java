@@ -66,4 +66,10 @@ public class BrandController {
             return new PygResult(false, "删除失败");
         }
     }
+
+    @RequestMapping("/search")
+    public PageResult search(@RequestBody TbBrand tbBrand,int page,int size) {
+        PageResult result = brandService.search(tbBrand, page, size);
+        return result;
+    }
 }

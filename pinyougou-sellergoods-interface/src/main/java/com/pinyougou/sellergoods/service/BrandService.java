@@ -42,4 +42,13 @@ public interface BrandService {
      * 删除品牌功能
      */
     public void delete(Long[] ids);
+
+    /**
+     * 根据输入品牌名称和首字母进行模糊查询品牌功能
+     * @param tbBrand
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public PageResult search(TbBrand tbBrand,int pageNum,int pageSize);
 }
