@@ -29,6 +29,7 @@
         <security.version>3.2.3.RELEASE</security.version>
         <solrj.version>4.10.3</solrj.version>
         <ik.version>2012_u6</ik.version>
+        <lombok.version>1.16.10</lombok.version>
     </properties>
 
     <dependencyManagement>
@@ -181,6 +182,12 @@
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>activemq-all</artifactId>
                 <version>${activemq.version}</version>
+            </dependency>
+            <!--lombok插件使用-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
             <!-- 身份验证 -->
             <dependency>

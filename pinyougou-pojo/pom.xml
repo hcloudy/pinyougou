@@ -10,5 +10,17 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>pinyougou-pojo</artifactId>
-
+    <dependencies>
+        <!--lombok插件使用-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
 </project>

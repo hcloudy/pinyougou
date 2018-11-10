@@ -5,12 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>品牌管理</title>
     <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
-    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
-    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+	<link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+	<link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+	<link rel="stylesheet" href="../css/style.css">
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
-    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="../plugins/angularjs/angular.min.js" ></script>
 	<script src="../plugins/angularjs/pagination.css"></script>
 	<script src="../plugins/angularjs/pagination.js"></script>
@@ -18,7 +18,7 @@
 	<script src="../js/base_pagination.js"></script>
 	<script src="../js/service/brandService.js"></script>
 	<script src="../js/controller/brandController.js"></script>
-
+	<script src="../js/controller/baseController.js"></script>
 </head>
 <body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="brandController">
   <!-- .box-body -->
@@ -43,7 +43,10 @@
                             </div>
                             <div class="box-tools pull-right">
                                 <div class="has-feedback">
-							           品牌名称：<input ng-model="searchEntity.name">品牌首字母：<input ng-model="searchEntity.firstChar"><button ng-click="reloadList()">查询</button>
+							           品牌名称：<input ng-model="searchBrand.name">
+									 品牌首字母：<input ng-model="searchBrand.firstChar">
+									<button class="btn btn-default" ng-click="reloadList()">查询</button>
+									<button class="btn btn-default" ng-click="searchBrand={}">重置</button>
                                 </div>
                             </div>
                             <!--工具栏/-->
@@ -77,10 +80,6 @@
 							<tm-pagination conf="paginationConf"></tm-pagination>
                         </div>
                         <!-- 数据表格 /-->
-                        
-                        
-                        
-                        
                      </div>
                     <!-- /.box-body -->
          

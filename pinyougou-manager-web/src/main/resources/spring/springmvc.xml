@@ -15,10 +15,10 @@
 			<bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
 				<property name="supportedMediaTypes" value="application/json"/>
 				<property name="features">
-					<list>
+					<array>
 						<value>WriteMapNullValue</value>
 						<value>WriteDateUseDateFormat</value>
-					</list>
+					</array>
 				</property>
 			</bean>
 		</mvc:message-converters>

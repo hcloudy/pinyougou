@@ -18,7 +18,7 @@ app.service("brandService",function($http) {
      this.del = function(ids) {
          return $http.get("../brand/delete.do?ids="+ids);
      }
-     this.search = function(page,size,searchEntity) {
-         return $http.post("../brand/search.do?page="+page+"&size="+size,searchEntity);
+     this.search = function(page,size,searchBrand) {
+         return $http.post("../brand/search.do?page="+page+"&size="+size,searchBrand);
      }
  });
