@@ -5,23 +5,28 @@ import com.pinyougou.pojo.TbBrand;
 import com.pinyougou.sellergoods.service.BrandService;
 import entity.PageResult;
 import entity.PygResult;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 品牌管理的控制层
  */
 @RestController
 @RequestMapping("/brand")
+@Api(value = "/brand",tags = "品牌接口",description = "品牌接口")
 public class BrandController {
 
     @Reference
     private BrandService brandService;
 
     @RequestMapping("/findAll")
+    @ApiOperation(value = "获取全部品牌",httpMethod = "GET")
     public List<TbBrand> findAll() {
         return brandService.findAll();
     }
@@ -73,5 +78,10 @@ public class BrandController {
     public PageResult search(@RequestBody TbBrand tbBrand,int page,int size) {
         PageResult result = brandService.search(tbBrand, page, size);
         return result;
+    }
+
+    @RequestMapping("/brandOptionList")
+    public List<Map> brandOptionList() {
+        return brandService.brandOptionList();
     }
 }

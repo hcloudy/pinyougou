@@ -8,6 +8,7 @@ import com.pinyougou.pojo.TbTypeTemplate;
 import com.pinyougou.pojo.TbTypeTemplateExample;
 import com.pinyougou.sellergoods.service.TypeTemplateService;
 import entity.PageResult;
+import entity.PygResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
@@ -35,5 +36,31 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
         }
         Page<TbTypeTemplate> pa = (Page<TbTypeTemplate>) tbTypeTemplateMapper.selectByExample(example);
         return new PageResult(pa.getTotal(),pa.getResult());
+    }
+
+    /**
+     * 添加模板
+     * @param tbTypeTemplate
+     */
+    @Override
+    public void add(TbTypeTemplate tbTypeTemplate) {
+        tbTypeTemplateMapper.insert(tbTypeTemplate);
+    }
+
+    @Override
+    public TbTypeTemplate findById(long id) {
+        return tbTypeTemplateMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void update(TbTypeTemplate tbTypeTemplate) {
+        tbTypeTemplateMapper.updateByPrimaryKey(tbTypeTemplate);
+    }
+
+    @Override
+    public void delete(Long[] ids) {
+        for(Long id : ids) {
+            tbTypeTemplateMapper.deleteByPrimaryKey(id);
+        }
     }
 }

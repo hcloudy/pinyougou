@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 规格管理的控制层
  */
@@ -87,5 +90,13 @@ public class SpecificationController {
         }
     }
 
+    /**
+     * 获取规格下拉列表
+     * @return
+     */
+    @RequestMapping("/selectSpecificationLists")
+    public List<Map> selectSpecificationLists() {
+        return specificationService.selectSpecificationLists();
+    }
 
 }

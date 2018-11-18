@@ -55,6 +55,7 @@ app.controller("specificationController",function($scope,$controller,specificati
                 function (response) {
                     if(response.success) {
                         $scope.reloadList();
+                        alert(response.message);
                     }else {
                         alert(response.message);
                     }

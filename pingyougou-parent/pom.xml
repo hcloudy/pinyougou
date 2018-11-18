@@ -30,6 +30,8 @@
         <solrj.version>4.10.3</solrj.version>
         <ik.version>2012_u6</ik.version>
         <lombok.version>1.16.10</lombok.version>
+        <springfox-swagger2>2.6.1</springfox-swagger2>
+        <springfox-swagger-ui>2.6.1</springfox-swagger-ui>
     </properties>
 
     <dependencyManagement>
@@ -259,6 +261,18 @@
                 <artifactId>xml-apis</artifactId>
                 <version>1.4.01</version>
             </dependency>
+            <!--测试工具swagger2-->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${springfox-swagger2}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${springfox-swagger-ui}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

@@ -18,4 +18,7 @@ app.service("specificationService",function($http) {
     this.del = function (ids) {
         return $http.get("../specification/delete.do?ids="+ids);
     }
+    this.selectSpecificationLists = function () {
+        return $http.get("../specification/selectSpecificationLists.do");
+    }
 });

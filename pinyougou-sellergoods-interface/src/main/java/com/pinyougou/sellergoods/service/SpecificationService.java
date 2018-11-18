@@ -7,6 +7,7 @@ import entity.PageResult;
 import entity.PygResult;
 
 import java.util.List;
+import java.util.Map;
 
 public interface SpecificationService {
 
@@ -43,4 +44,10 @@ public interface SpecificationService {
      * @param ids
      */
     public void delete(Long[] ids);
+
+    /**
+     * 规格下拉框列表
+     * @return
+     */
+    public List<Map> selectSpecificationLists();
 }

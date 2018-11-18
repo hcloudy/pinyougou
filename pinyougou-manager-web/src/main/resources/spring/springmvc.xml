@@ -24,6 +24,14 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 
+	<!--配置swagger2-->
+	<bean class="com.pinyougou.config.SwaggerConfig"></bean>
+	<mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
+	<mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+
+	<bean class="springfox.documentation.swagger2.configuration.Swagger2DocumentationConfiguration" id="swagger2Config"/>
+
+
 	<!-- 引用dubbo 服务 -->
 	<dubbo:application name="pinyougou-manager-web" />
 	<dubbo:registry address="zookeeper://192.168.1.123:2181" />

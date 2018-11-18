@@ -15,6 +15,7 @@ import entity.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SpecificationImpl implements SpecificationService{
@@ -113,5 +114,10 @@ public class SpecificationImpl implements SpecificationService{
             tbSpecificationOptionMapper.deleteByExample(example);
 
         }
+    }
+
+    @Override
+    public List<Map> selectSpecificationLists() {
+        return tbSpecificationMapper.selectSpecificationLists();
     }
 }
