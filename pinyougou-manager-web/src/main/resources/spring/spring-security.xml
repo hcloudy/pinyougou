@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!--配置静态资源可以不登录访问-->
+    <http pattern="/*.html" security="none"></http>
+    <http pattern="/css/**" security="none"></http>
+    <http pattern="/img/**" security="none"></http>
+    <http pattern="/js/**" security="none"></http>
+    <http pattern="/plugins/**" security="none"></http>
+
+    <!--设置页面拦截规则  use-expressions 为true启动SPEL表达式，默认为true-->
+    <http use-expressions="false">
+        <!--拦截所有的资源包括子目录-->
+        <intercept-url pattern="/**" access="ROLE_AMDIN"/>
+        <!--  login-page配置自定义登录页面
+              default-target-url 配置登录成功跳转页面
+              authentication-failure-url配置登录失败跳转页面
+              always-use-defualt-target 你登录之前不管访问的是哪个页面，登录之后都是跳转到默认跳转页面。即：/admin/index.html
+                    -->
+        <form-login login-page="/login.html" default-target-url="/admin/index.html" authentication-failure-url="/login.html" always-use-default-target="true"/>
+        <!--csrf设置失效-->
+        <csrf disabled="true"/>
+
+        <!--如果不配置访问无法加载页面中有嵌套iframe页面-->
+        <headers>
+            <frame-options policy="SAMEORIGIN"/>
+        </headers>
+        <logout/>
+    </http>
+    <!--认证管理-->
+    <authentication-manager>
+        <authentication-provider>
+            <user-service>
+                <user name="admin" password="123456" authorities="ROLE_AMDIN"/>
+                <user name="hu" password="1" authorities="ROLE_AMDIN"/>
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+</beans:beans>

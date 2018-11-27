@@ -8,7 +8,6 @@ import com.pinyougou.pojo.TbBrand;
 import com.pinyougou.pojo.TbBrandExample;
 import com.pinyougou.sellergoods.service.BrandService;
 import entity.PageResult;
-import entity.PygResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
