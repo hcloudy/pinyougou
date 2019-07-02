@@ -16,7 +16,7 @@ app.controller("typeTemplateController",function ($scope,$controller,typeTemplat
     $scope.findBrandOptionList = function () {
         brandService.brandOptionList().success(
             function (response) {
-                $scope.brandLists = {data:response}
+                $scope.brandLists = {data:response};
             }
         );
     }

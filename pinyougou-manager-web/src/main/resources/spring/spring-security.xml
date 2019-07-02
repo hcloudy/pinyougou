@@ -10,6 +10,7 @@
     <http pattern="/img/**" security="none"></http>
     <http pattern="/js/**" security="none"></http>
     <http pattern="/plugins/**" security="none"></http>
+    <http pattern="/webjars/**" security="none"></http>
 
     <!--设置页面拦截规则  use-expressions 为true启动SPEL表达式，默认为true-->
     <http use-expressions="false">

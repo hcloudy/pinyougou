@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/typeTemplate")
 public class TypeTemplateController {
@@ -70,5 +73,10 @@ public class TypeTemplateController {
             e.printStackTrace();
             return new PygResult(false,"删除失败");
         }
+    }
+
+    @RequestMapping("/typeTemplateOptionList")
+    public List<Map> typeTemplateOptionList() {
+        return typeTemplateService.typeTemplateOptionList();
     }
 }

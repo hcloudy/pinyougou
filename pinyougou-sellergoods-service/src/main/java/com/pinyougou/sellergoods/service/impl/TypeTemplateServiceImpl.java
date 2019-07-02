@@ -11,6 +11,9 @@ import entity.PageResult;
 import entity.PygResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class TypeTemplateServiceImpl implements TypeTemplateService {
 
@@ -62,5 +65,10 @@ public class TypeTemplateServiceImpl implements TypeTemplateService {
         for(Long id : ids) {
             tbTypeTemplateMapper.deleteByPrimaryKey(id);
         }
+    }
+
+    @Override
+    public List<Map> typeTemplateOptionList() {
+        return tbTypeTemplateMapper.typeTemplateOptionList();
     }
 }

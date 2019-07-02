@@ -18,4 +18,8 @@ app.service("typeTemplateService",function ($http) {
     this.del = function(ids) {
         return $http.get("../typeTemplate/delete.do?ids="+ids);
     }
+
+    this.templateOptionList = function () {
+        return $http.get("../typeTemplate/typeTemplateOptionList.do");
+    }
 })

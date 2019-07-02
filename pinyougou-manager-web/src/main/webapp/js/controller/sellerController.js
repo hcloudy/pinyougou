@@ -11,4 +11,24 @@ app.controller("sellerController",function ($scope,$http,$controller, sellerServ
             }
         )
     }
+
+    $scope.findSellerById = function (sellerId) {
+        sellerService.findSellerById(sellerId).success(
+            function (response) {
+                $scope.entity = response;
+            }
+        )
+    }
+
+    $scope.updateStatus = function (sellerId, status) {
+        sellerService.updateStatus(sellerId,status).success(
+            function (response) {
+                if(response.success) {
+                    $scope.reloadList();
+                }else {
+                    alert(response.message);
+                }
+            }
+        )
+    }
 })

@@ -47,4 +47,17 @@ public class SellerServiceImpl implements SellerService {
         Page<TbSeller> page = (Page<TbSeller>) tbSellerMapper.selectByExample(example);
         return new PageResult(page.getTotal(),page.getResult());
     }
+
+    @Override
+    public TbSeller findSellerById(String sellerId) {
+        TbSeller tbSeller = tbSellerMapper.selectByPrimaryKey(sellerId);
+        return tbSeller;
+    }
+
+    @Override
+    public void updateStatus(String sellerId, String status) {
+        TbSeller tbSeller = tbSellerMapper.selectByPrimaryKey(sellerId);
+        tbSeller.setStatus(status);
+        tbSellerMapper.updateByPrimaryKey(tbSeller);
+    }
 }

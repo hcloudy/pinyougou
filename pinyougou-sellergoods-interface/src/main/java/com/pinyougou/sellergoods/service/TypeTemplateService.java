@@ -5,6 +5,8 @@ import entity.PageResult;
 import entity.PygResult;
 
 import java.security.acl.LastOwnerException;
+import java.util.List;
+import java.util.Map;
 
 public interface TypeTemplateService {
 
@@ -42,4 +44,10 @@ public interface TypeTemplateService {
      * @param ids
      */
     public void delete(Long[] ids);
+
+    /**
+     * 获取类型模板下拉列表
+     * @return
+     */
+    public List<Map> typeTemplateOptionList();
 }
