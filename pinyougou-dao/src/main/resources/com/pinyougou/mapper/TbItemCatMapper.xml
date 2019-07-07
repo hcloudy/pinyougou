@@ -83,10 +83,12 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from tb_item_cat
-    where id = #{id,jdbcType=BIGINT}
+    select
+    tic.id as id, tic.parent_id as parent_id, tic.name as name, tic.type_id as type_id, ttt.name as text
+    <!--<include refid="Base_Column_List" />-->
+    from tb_item_cat tic,tb_type_template ttt
+    where ttt.id = tic.type_id
+    and tic.id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from tb_item_cat

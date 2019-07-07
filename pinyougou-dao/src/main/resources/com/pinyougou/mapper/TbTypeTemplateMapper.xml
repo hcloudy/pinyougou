@@ -209,7 +209,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
-  <select id="typeTemplateOptionList" resultType="java.util.Map">
+  <select id="typeTemplateOptionList" parameterType="java.lang.Long" resultType="java.util.Map">
     SELECT id,name AS text FROM tb_type_template
   </select>
 </mapper>

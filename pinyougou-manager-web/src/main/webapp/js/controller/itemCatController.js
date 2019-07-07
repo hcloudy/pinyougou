@@ -41,14 +41,17 @@ app.controller("itemCatController",function ($scope,$http,$controller,itemCatSer
     $scope.modify = function () {
         var serviceObject = null;
         if($scope.itemCat.id != null) {
+            $scope.itemCat.typeId = $scope.itemCat.typeId['id'];
             serviceObject = itemCatService.update($scope.itemCat);
         }else {
             $scope.itemCat.parentId = $scope.parentId;
+            $scope.itemCat.typeId = $scope.itemCat.typeId['id'];
             serviceObject = itemCatService.save($scope.itemCat);
         }
         serviceObject.success(
             function (response) {
                 if(response.success) {
+                    alert(response.message);
                     $scope.findByParentID($scope.parentId);
                 }else {
                     alert(response.message);
@@ -72,5 +75,6 @@ app.controller("itemCatController",function ($scope,$http,$controller,itemCatSer
                 $scope.itemCat = response;
             }
         )
+
     }
 })
