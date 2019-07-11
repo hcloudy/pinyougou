@@ -22,4 +22,7 @@ app.service("typeTemplateService",function ($http) {
     this.templateOptionList = function () {
         return $http.get("../typeTemplate/typeTemplateOptionList.do");
     }
+    this.findSpecList = function (id) {
+        return $http.get("../typeTemplate/findSpecList.do?id="+id);
+    }
 })

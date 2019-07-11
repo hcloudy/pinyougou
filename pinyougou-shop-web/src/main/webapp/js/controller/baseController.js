@@ -44,4 +44,14 @@ app.controller("baseController",function($scope) {
         }
         return value;
     }
-})
+
+    //在集合查询对象中某个属性值
+    $scope.searchObjectByKey = function(list,key,value) {
+        for (var i = 0; i < list.length; i ++) {
+            if(list[i][key] == value) {
+                return list[i];
+            }
+        }
+        return null;
+    }
+});

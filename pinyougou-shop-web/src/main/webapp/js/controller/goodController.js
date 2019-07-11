@@ -1,4 +1,6 @@
-app.controller("goodController",function ($scope, goodService, uploadService,itemCatService,typeTemplateService) {
+app.controller("goodController",function ($scope,$controller, goodService, uploadService,itemCatService,typeTemplateService) {
+    $controller('baseController',{$scope:$scope});//继承
+
     $scope.add = function () {
         $scope.goods.tbGoodsDesc.introduction = editor.html();//获取富文本编辑器html代码
         goodService.add($scope.goods).success(
@@ -27,7 +29,7 @@ app.controller("goodController",function ($scope, goodService, uploadService,ite
         )
     }
     //声明数据结构
-    $scope.goods = {tbGoods:{}, tbGoodsDesc:{itemImages:[]} };
+    $scope.goods = {tbGoods:{}, tbGoodsDesc:{itemImages:[],specificationItems:[]} };
     //把图片添加到集合中
     $scope.add_image_list = function () {
         $scope.goods.tbGoodsDesc.itemImages.push($scope.image_entity);
@@ -83,5 +85,51 @@ app.controller("goodController",function ($scope, goodService, uploadService,ite
                 $scope.goods.tbGoodsDesc.customAttributeItems = JSON.parse($scope.typeTemplate.customAttributeItems);
             }
         )
+        typeTemplateService.findSpecList(newValue).success(
+            function (response) {
+                $scope.specList = response;
+            }
+        )
     })
+
+    //选择规格属性的操作
+    $scope.updateSpecAttribute = function ($event,name,value) {
+        var object = $scope.searchObjectByKey($scope.goods.tbGoodsDesc.specificationItems,'attributeName',name);
+        if (null != object) {
+            if($event.target.checked) {
+                object.attributeValue.push(value);
+            }else{
+                object.attributeValue.splice(object.attributeValue.indexOf(value),1);
+                //如果选项都取消了，将此条记录移除
+                if(object.attributeValue.length==0){
+                    $scope.goods.tbGoodsDesc.specificationItems.splice($scope.goods.tbGoodsDesc.specificationItems.indexOf(object),1);
+                }
+            }
+        }else{
+            $scope.goods.tbGoodsDesc.specificationItems.push({"attributeName":name,"attributeValue":[value]});
+        }
+    }
+
+    //创建sku列表
+    $scope.createItemList = function () {
+        //初始化列表
+        $scope.goods.tbItems = [{spec:{},price:'0',num:'9999',isDefault:'0',status:'0'}];
+        var items = $scope.goods.tbGoodsDesc.specificationItems;
+        for (var i = 0;i < items.length; i ++) {
+            $scope.goods.tbItems = addColumn($scope.goods.tbItems,items[i].attributeName,items[i].attributeValue);
+        }
+    }
+    addColumn = function (list, columnName, columnValue) {
+        var newList = [];
+        for (var i = 0; i < list.length; i ++) {
+            var oldRow = list[i];
+            for (var j=0; j < columnValue.length; j ++) {
+                var newRow = JSON.parse(JSON.stringify(oldRow));
+                newRow.spec[columnName] = columnValue[j];
+                newList.push(newRow);
+            }
+        }
+        return newList;
+    }
+
 })
