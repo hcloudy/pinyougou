@@ -1,6 +1,39 @@
 app.controller("goodController",function ($scope,$controller, goodService, uploadService,itemCatService,typeTemplateService) {
     $controller('baseController',{$scope:$scope});//继承
 
+    $scope.itemCatList = [];
+    //根据分类ID展示对应的分类名称
+    $scope.findItemCatName = function() {
+        itemCatService.findAll().success(
+            function (response) {
+                for (var i = 0;i <response.length;i ++) {
+                    $scope.itemCatList[response[i].id] = response[i].name;
+                }
+            }
+        );
+    }
+
+    //展示当前商家的商品列表
+    $scope.findPage = function(page,size) {
+        goodService.findPage(page,size).success(
+            function (response) {
+                $scope.goods = response.rows;
+                $scope.paginationConf.totalItems = response.total;
+            }
+        )
+    }
+    $scope.searchTbGoods = {};
+    //查询
+    $scope.search = function(page,size) {
+        goodService.search($scope.searchTbGoods,page,size).success(
+            function (response) {
+                $scope.goods = response.rows;
+                $scope.paginationConf.totalItems = response.total;
+            }
+        )
+    }
+    $scope.auditStatusName = ['未申请','申请中','审核通过','已驳回'];
+    //添加商品
     $scope.add = function () {
         $scope.goods.tbGoodsDesc.introduction = editor.html();//获取富文本编辑器html代码
         goodService.add($scope.goods).success(

@@ -20,4 +20,5 @@ public interface ItemCatService {
 
     public TbItemCat findById(long id);
 
+    public List<TbItemCat> findAll();
 }

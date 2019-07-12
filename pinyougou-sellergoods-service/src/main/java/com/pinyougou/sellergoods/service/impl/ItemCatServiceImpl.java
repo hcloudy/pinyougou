@@ -40,5 +40,11 @@ public class ItemCatServiceImpl implements ItemCatService {
         return itemCatMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public List<TbItemCat> findAll() {
+        List<TbItemCat> list = itemCatMapper.selectByExample(null);
+        return list;
+    }
+
 
 }

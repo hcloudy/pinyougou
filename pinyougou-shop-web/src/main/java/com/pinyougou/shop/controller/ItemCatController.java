@@ -48,4 +48,9 @@ public class ItemCatController {
     public TbItemCat findItemCatById(long id) {
         return itemCatService.findById(id);
     }
+
+    @RequestMapping("/findAll")
+    public List<TbItemCat> findAll() {
+        return itemCatService.findAll();
+    }
 }

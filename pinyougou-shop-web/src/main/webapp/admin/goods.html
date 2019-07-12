@@ -14,21 +14,29 @@
     <link rel="stylesheet" href="../css/style.css">
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+
+	<script src="../plugins/angularjs/angular.min.js" ></script>
+	<script src="../plugins/angularjs/pagination.css"></script>
+	<script src="../plugins/angularjs/pagination.js"></script>
+
+	<script src="../js/base_pagination.js"></script>
+	<script src="../js/service/goodService.js"></script>
+	<script src="../js/service/uploadService.js"></script>
+	<script src="../js/service/itemCatService.js"></script>
+	<script src="../js/service/typeTemplateService.js"></script>
+	<script src="../js/controller/baseController.js"></script>
+	<script src="../js/controller/goodController.js"></script>
  
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" >
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="goodController" ng-init="findItemCatName()">
   <!-- .box-body -->
-                
                     <div class="box-header with-border">
                         <h3 class="box-title">商品管理</h3>
                     </div>
-
                     <div class="box-body">
-
                         <!-- 数据表格 -->
                         <div class="table-box">
-
                             <!--工具栏-->
                             <div class="pull-left">
                                 <div class="form-group form-inline">
@@ -43,19 +51,19 @@
                             </div>
                             <div class="box-tools pull-right">
                                 <div class="has-feedback">
-                                  状态：<select>
+                                  状态：<select ng-model="searchTbGoods.auditStatus">
                                          	<option value="">全部</option>      
                                          	<option value="0">未申请</option>    
                                          	<option value="1">申请中</option>    
                                          	<option value="2">审核通过</option>    
                                          	<option value="3">已驳回</option>                                     
                                         </select>
-							                  商品名称：<input >									
-									<button class="btn btn-default" >查询</button>                                    
+							                  商品名称：<input ng-model="searchTbGoods.goodsName">
+									<button class="btn btn-default" ng-click="reloadList()">查询</button>
+									<button class="btn btn-default" ng-click="searchTbGoods={}">重置</button>
                                 </div>
                             </div>
                             <!--工具栏/-->
-
 			                  <!--数据列表-->
 			                  <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
 			                      <thead>
@@ -74,26 +82,17 @@
 			                          </tr>
 			                      </thead>
 			                      <tbody>
-			                          <tr>
+			                          <tr ng-repeat="pojo in goods">
 			                              <td><input  type="checkbox"></td>			                              
-				                          <td>1</td>
-									      <td>小米6S手机</td>
-									      <td>1090</td>
-									      <td>数码</td>
-									      <td>手机</td>
-									      <td>国产手机</td>
+				                          <td>{{pojo.id}}</td>
+									      <td>{{pojo.goodsName}}</td>
+									      <td>{{pojo.price}}</td>
+									      <td>{{itemCatList[pojo.category1Id]}}</td>
+									      <td>{{itemCatList[pojo.category2Id]}}</td>
+									      <td>{{itemCatList[pojo.category3Id]}}</td>
 		                                  <td>
 		                                  	<span>
-		                                  		未申请
-		                                  	</span>
-		                                  	<span >
-		                                  		申请中
-		                                  	</span>
-		                                  	<span>
-		                                  		审核通过
-		                                  	</span>
-		                                  	<span>
-		                                  		已驳回
+		                                  		{{auditStatusName[pojo.auditStatus]}}
 		                                  	</span>
 		                                  </td>		                                  
 		                                  <td class="text-center">                                          
@@ -102,8 +101,8 @@
 			                          </tr>
 			                      </tbody>
 			                  </table>
-			                  <!--数据列表/-->                        
-							  
+			                  <!--数据列表/-->
+							<tm-pagination conf="paginationConf"></tm-pagination>
 							 
                         </div>
                         <!-- 数据表格 /-->

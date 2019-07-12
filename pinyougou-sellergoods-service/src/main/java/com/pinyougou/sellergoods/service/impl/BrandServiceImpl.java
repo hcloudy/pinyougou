@@ -23,12 +23,14 @@ public class BrandServiceImpl implements BrandService {
         return tbBrandMapper.selectByExample(null);
     }
 
+    //品牌列表
     public PageResult findPage(int pageNum,int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         Page<TbBrand> page = (Page<TbBrand>) tbBrandMapper.selectByExample(null);
         return new PageResult(page.getTotal(),page.getResult());
     }
 
+    //品牌添加
     public void add(TbBrand tbBrand) {
         tbBrandMapper.insert(tbBrand);
     }
@@ -36,6 +38,7 @@ public class BrandServiceImpl implements BrandService {
     public TbBrand findById(long id) {
         return tbBrandMapper.selectByPrimaryKey(id);
     }
+
 
     public void update(TbBrand tbBrand) {
         tbBrandMapper.updateByPrimaryKey(tbBrand);
@@ -47,6 +50,7 @@ public class BrandServiceImpl implements BrandService {
         }
     }
 
+    //品牌查询
     public PageResult search(TbBrand tbBrand, int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         TbBrandExample example = new TbBrandExample();

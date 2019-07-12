@@ -2,13 +2,13 @@ package com.pinyougou.sellergoods.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.pinyougou.group.pojo.Goods;
 import com.pinyougou.mapper.*;
-import com.pinyougou.pojo.TbBrand;
-import com.pinyougou.pojo.TbItem;
-import com.pinyougou.pojo.TbItemCat;
-import com.pinyougou.pojo.TbSeller;
+import com.pinyougou.pojo.*;
 import com.pinyougou.sellergoods.service.GoodService;
+import entity.PageResult;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
@@ -30,6 +30,8 @@ public class GoodServiceImpl implements GoodService {
     private TbBrandMapper tbBrandMapper;
     @Autowired
     private TbSellerMapper tbSellerMapper;
+
+    //添加商品
     @Override
     public void add(Goods goods) {
         goods.getTbGoods().setAuditStatus("0");//商品的状态 0 未审核
@@ -86,4 +88,37 @@ public class GoodServiceImpl implements GoodService {
         item.setSeller(seller.getNickName());
         tbItemMapper.insert(item);
     }
+
+    //商品列表
+    @Override
+    public PageResult findPage(String sellerId,int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        TbGoodsExample example = new TbGoodsExample();
+        TbGoodsExample.Criteria criteria = example.createCriteria();
+        criteria.andSellerIdEqualTo(sellerId);
+        Page<TbGoods> page = (Page) tbGoodsMapper.selectByExample(example);
+        return new PageResult(page.getTotal(),page.getResult());
+    }
+
+    //查询
+    @Override
+    public PageResult search(TbGoods goods, int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        TbGoodsExample example = new TbGoodsExample();
+        TbGoodsExample.Criteria criteria = example.createCriteria();
+        if (null != goods) {
+            if(goods.getGoodsName() != null && goods.getGoodsName().length() > 0) {
+                criteria.andGoodsNameLike("%"+goods.getGoodsName()+"%");
+            }
+            if(goods.getSellerId() != null && goods.getSellerId().length() > 0) {
+                criteria.andSellerIdEqualTo(goods.getSellerId());
+            }
+            if(goods.getAuditStatus() != null && goods.getAuditStatus().length() > 0) {
+                criteria.andAuditStatusEqualTo(goods.getAuditStatus());
+            }
+        }
+        Page<TbGoods> page = (Page) tbGoodsMapper.selectByExample(example);
+        return new PageResult(page.getTotal(),page.getResult());
+    }
+
 }

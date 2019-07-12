@@ -21,4 +21,8 @@ app.service("itemCatService",function ($http) {
     this.findItemCatList = function (id) {
         return $http.get("../itemCat/findByParentId.do?parentId="+id);
     }
+    //获取所有分类
+    this.findAll = function () {
+        return $http.get("../itemCat/findAll.do")
+    }
 })
